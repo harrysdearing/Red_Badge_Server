@@ -9,7 +9,8 @@ router.post("/register", (req, res) => {
         lastName: req.body.user.lastName,
         role: req.body.user.role,
         username: req.body.user.username,
-        password: bcrypt.hashSync(req.body.user.password, 10)
+        password: bcrypt.hashSync(req.body.user.password, 10),
+        companyId: req.body.companyId
         })
         .then((user) => {
             const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {

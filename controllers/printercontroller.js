@@ -16,17 +16,19 @@ router.post("/registerprinter", validateSession, (req, res) => {
         base_rate: req.body.printer.base_rate,
         flat_rate: req.body.printer.flat_rate,
         billable: req.body.printer.billable,
+        companyId: req.user.companyId,
+        customerId: req.body.printer.customerId
     })
     .then(printer => res.status(200).json(printer))
     .catch(err => console.log(err));
 });
 
-router.get('/getprinter', validateSession, (req, res) => {
+router.get('/getprinter/:id', validateSession, (req, res) => {
     printer.findOne({
         where: {
-            printerId: req.printer.id
+            id: req.params.id
         },
-        include: 'company'
+        include: ['customer', 'company']
     })
     .then(function createSuccess(data) {
         res.status(200).json({
@@ -40,7 +42,7 @@ router.get('/getprinter', validateSession, (req, res) => {
 router.get('/getallprinters', validateSession, (req, res) => {
     printer.findAll({
         where: {
-            companyId: req.company.id,
+            companyId: req.user.companyId
         },
         include: 'company'
     }) 

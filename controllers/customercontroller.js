@@ -7,7 +7,8 @@ router.post("/registercustomer", validateSession, (req, res) => {
         customerName: req.body.customer.customerName,
         startDate: req.body.customer.startDate,
         expDate: req.body.customer.expDate,
-        billingCycle: req.body.customer.billingCycle
+        billingCycle: req.body.customer.billingCycle,
+        companyId: req.user.companyId
     })
     .then(customer => res.status(200).json(customer))
     .catch(err => console.log(err));
@@ -16,7 +17,7 @@ router.post("/registercustomer", validateSession, (req, res) => {
 router.get('/getcustomer', validateSession, (req, res) => {
     customer.findOne({
         where: {
-            customerId: req.customer.id
+            companyId: req.user.companyId
         },
         include: 'company'
     })
@@ -30,7 +31,7 @@ router.get('/getcustomer', validateSession, (req, res) => {
 
 
 router.get('/getallcustomers', validateSession, (req, res) => {
-    customer.findAll()  //if you had more than one controller file, you could do include: ['userinfo', 'logs]
+    customer.findAll()
         .then(info => res.status(200).json(info))
         .catch(err => res.status(500).json(err))
 })
