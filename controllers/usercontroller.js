@@ -10,7 +10,7 @@ router.post("/register", (req, res) => {
         role: req.body.user.role,
         username: req.body.user.username,
         password: bcrypt.hashSync(req.body.user.password, 10),
-        companyId: req.body.companyId
+        companyId: req.body.user.companyId
         })
         .then((user) => {
             const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
@@ -30,7 +30,7 @@ router.post('/login', function(req, res) {
     User.findOne({
             where: {
                 username: req.body.user.username
-            }
+            }, include: 'company'
         })
         .then(function loginSuccess(user) {
             if (user) {

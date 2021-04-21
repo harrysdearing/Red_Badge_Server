@@ -7,12 +7,13 @@
 //REQUIRE ALLOWS US TO PULL IN SOMETHING FROM ANOTHER FILE
 require('dotenv').config(); //require it at the top level and make items in an .env file available to our whole application
 let express = require('express'); //we are importing this using express.  this is one of the node_modules we have within package.json
-const app = express({force: true});
+const app = express();
 const sequelize = require('./database');
-let user = require('./controllers/usercontroller.js');
-let company = require('./controllers/companycontroller.js');
-let customer = require('./controllers/customercontroller.js');
-let printer = require('./controllers/printercontroller.js');
+const user = require('./controllers/usercontroller.js');
+const company = require('./controllers/companycontroller.js');
+const customer = require('./controllers/customercontroller.js');
+const printer = require('./controllers/printercontroller.js');
+const dca = require('./controllers/dcacontroller.js');
 
 
 sequelize.sync(); //method to ensure all of our models and tables in our server are put onto the database if they're not there
@@ -25,6 +26,7 @@ app.use('/company', company);
 app.use('/user', user);
 app.use('/customer', customer);
 app.use('/printer', printer);
+app.use('/dca', dca);
 
 
 app.listen(3000, function() {
