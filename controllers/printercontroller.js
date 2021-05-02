@@ -7,15 +7,13 @@ router.post("/registerprinter", validateSession, (req, res) => {
         printerModel: req.body.printer.printerModel,
         assetId: req.body.printer.assetId,
         serialNumber: req.body.printer.serialNumber,
-        startMono: req.body.printer.startMono,
-        endMono: req.body.printer.endMono,
-        monoPrice: req.body.printer.monoPrice,
-        colorPrice: req.body.printer.colorPrice,
+        billable: req.body.printer.billable,
         base_mono_volume: req.body.printer.base_mono_volume,
         base_color_volume: req.body.printer.base_color_volume,
         base_rate: req.body.printer.base_rate,
+        monoPrice: req.body.printer.monoPrice,
+        colorPrice: req.body.printer.colorPrice,
         flat_rate: req.body.printer.flat_rate,
-        billable: req.body.printer.billable,
         companyId: req.user.companyId,
         customerId: req.body.printer.customerId
     })
