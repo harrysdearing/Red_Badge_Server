@@ -23,6 +23,7 @@ company = sequelize.import("./models/company")
 User = sequelize.import("./models/user")
 customer = sequelize.import("./models/customer")
 printer = sequelize.import("./models/printer")
+meters = sequelize.import("./models/meters")
 dca = sequelize.import("./models/dca");
 dca.belongsTo(company)
 company.hasMany(dca)
@@ -32,7 +33,7 @@ company.hasMany(customer)
 customer.belongsTo(company)
 printer.belongsTo(company)
 company.hasMany(printer)
-printer.belongsTo(customer)
-customer.hasMany(printer)
+meters.belongsTo(company)
+company.hasMany(meters)
 
 module.exports = sequelize

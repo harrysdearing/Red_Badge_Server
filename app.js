@@ -13,6 +13,7 @@ const user = require('./controllers/usercontroller.js');
 const company = require('./controllers/companycontroller.js');
 const customer = require('./controllers/customercontroller.js');
 const printer = require('./controllers/printercontroller.js');
+const meters = require('./controllers/metercontroller.js');
 const dca = require('./controllers/dcacontroller.js');
 
 
@@ -26,6 +27,7 @@ app.use('/company', company);
 app.use('/user', user);
 app.use('/customer', customer);
 app.use('/printer', printer);
+app.use('/meters', meters);
 app.use('/dca', dca);
 
 

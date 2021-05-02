@@ -7,6 +7,8 @@ router.post("/registerprinter", validateSession, (req, res) => {
         printerModel: req.body.printer.printerModel,
         assetId: req.body.printer.assetId,
         serialNumber: req.body.printer.serialNumber,
+        ipAddress: req.body.printer.ipAddress,
+        status: req.body.printer.status,
         billable: req.body.printer.billable,
         base_mono_volume: req.body.printer.base_mono_volume,
         base_color_volume: req.body.printer.base_color_volume,
@@ -18,7 +20,7 @@ router.post("/registerprinter", validateSession, (req, res) => {
         customerId: req.body.printer.customerId
     })
     .then(printer => res.status(200).json(printer))
-    .catch(err => console.log(err));
+    .catch(err => console.log('Is this not working', err));
 });
 
 router.get('/getprinter/:id', validateSession, (req, res) => {

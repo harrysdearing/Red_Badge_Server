@@ -16,28 +16,16 @@ module.exports = function(sequelize, DataTypes){
             type: DataTypes.STRING,
             allowNull: true
         },
-        startMono: {
-            type: DataTypes.INTEGER,
-            allowNull: true
-        },
-        endMono: {
-            type: DataTypes.INTEGER,
-            allowNull: true
-        },
-        dateLastReported: {
-            type: DataTypes.DATEONLY,
-            allowNull: true
-        },
         status: {
             type: DataTypes.STRING,
             allowNull: true
         },
         monoPrice: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.FLOAT,
             allowNull: true
         },
         colorPrice: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.FLOAT,
             allowNull: true
         },
         base_mono_volume: {
@@ -49,28 +37,20 @@ module.exports = function(sequelize, DataTypes){
             allowNull: true
         },
         base_rate: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.FLOAT,
             allowNull: true
         },
         flat_rate: {
-            type: DataTypes.INTEGER,
-            allowNull: true
-        },
-        mono_exception: {
-            type: DataTypes.INTEGER,
-            allowNull: true
-        },
-        color_exception: {
-            type: DataTypes.INTEGER,
-            allowNull: true
-        },
-        month_exception: {
-            type: DataTypes.STRING,
+            type: DataTypes.FLOAT,
             allowNull: true
         },
         billable: {
             type: DataTypes.BOOLEAN,
             allowNull: true
+        },
+        customerId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         },
     })
     return printer
