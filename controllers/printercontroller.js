@@ -38,16 +38,69 @@ router.get('/getprinter/:id', validateSession, (req, res) => {
     }).catch(err => res.status(500).json('Printer Info not found', err))
 });
 
-
-router.get('/getallprinters', validateSession, (req, res) => {
+router.get('/getallprinters/:customerId', validateSession, (req, res) => {
     printer.findAll({
         where: {
-            companyId: req.user.companyId
+            companyId: req.user.companyId,
+            customerId: req.params.customerId
         },
         include: 'company'
     }) 
         .then(info => res.status(200).json(info))
         .catch(err => res.status(500).json(err))
 })
+
+router.put("/updateprinter/:id", validateSession, (req, res) => {
+    printer.update({
+        printerModel: req.body.printer.printerModel,
+        assetId: req.body.printer.assetId,
+        serialNumber: req.body.printer.serialNumber,
+        billable: req.body.printer.billable,
+        base_mono_volume: req.body.printer.base_mono_volume,
+        base_color_volume: req.body.printer.base_color_volume,
+        base_rate: req.body.printer.base_rate,
+        monoPrice: req.body.printer.monoPrice,
+        colorPrice: req.body.printer.colorPrice,
+        flat_rate: req.body.printer.flat_rate
+    },
+    {
+        where: {
+            id: req.params.id
+        }
+    })
+    .then((printer) => {
+        res.status(200).json(printer)
+    })
+    .catch((err) => {
+        res.status(500).json({
+           error: err
+        })
+    })
+});
+
+router.delete("/deleteprinter/:id", validateSession, (req, res) => {
+    printer.destroy({where: { id: req.params.id }})
+    .then((entry) => {
+        if(entry===0){
+            res.status(403).json({message:"You are not allowed to delete another Company's Printer!"})
+        } else {
+            res.status(200).json({message:"Printer deleted"})
+        }
+    }) 
+    .catch((err) => res.status(500).json({ error: err }));
+});
+
+
+// router.get('/getallprinters/:id', validateSession, (req, res) => {
+//     printer.findAll({
+//         where: {
+//             companyId: req.user.companyId,
+//             id: req.params.id
+//         },
+//         include: 'company'
+//     }) 
+//         .then(info => res.status(200).json(info))
+//         .catch(err => res.status(500).json(err))
+// })
 
 module.exports = router; 
