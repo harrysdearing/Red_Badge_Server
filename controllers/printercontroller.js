@@ -23,12 +23,12 @@ router.post("/registerprinter", validateSession, (req, res) => {
     .catch(err => console.log('Is this not working', err));
 });
 
-router.get('/getprinter/:id', validateSession, (req, res) => {
-    printer.findOne({
+router.get('/getprinters', validateSession, (req, res) => {
+    printer.findAll({
         where: {
-            id: req.params.id
+            companyId: req.user.companyId
         },
-        include: ['customer', 'company']
+        include: ['company']
     })
     .then(function createSuccess(data) {
         res.status(200).json({
