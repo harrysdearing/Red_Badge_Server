@@ -1,11 +1,13 @@
-//HOW CAN WE CONNECT TO THE DATABASE
+const Sequelize = require('sequelize'); 
 
-const Sequelize = require('sequelize'); //creating a new instance of sequelize
-
-//                                database name      , username   , password
-const sequelize = new Sequelize('red-badge-project', 'postgres', 'password', {
-    host: 'localhost', //hosting this on our local computer
-    dialect: 'postgres'
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialect: 'postgres',
+    dialectOptions: !process.env.DATABASE_URL.includes('localhost') ? {
+        ssl: {
+            require: true,
+            rejectUnauthorized: false
+        },
+    } : {}
 });
 
 //NEXT WE NEED TO AUTHENTICATE -- test the connection (NOT REQUIRED)
